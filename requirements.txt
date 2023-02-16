@@ -10,3 +10,4 @@ pymongo
 playsound==1.2.2
 gtts
 psutil
+gi
