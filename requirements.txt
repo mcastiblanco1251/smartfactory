@@ -7,6 +7,6 @@ seaborn
 streamlit_option_menu
 streamlit_authenticator==0.1.5
 pymongo
-playsound
+playsound==1.2.2
 gtts
 psutil
