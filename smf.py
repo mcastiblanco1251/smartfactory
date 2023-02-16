@@ -121,7 +121,9 @@ if authentication_status:
     x, y = [], []
 
     chart = st.line_chart()
-
+    st.sidebar.subheader('Límites de Control')
+    lms=st.sidebar.slider('Limite de Alerta Amarilla Superior', 0, 100, 70)
+    lmi=st.sidebar.slider('Limite de Alerta Amarilla Inferior', 0, 100, 20)
     while True:
         x.append(i)
         y.append(psutil.cpu_percent())
@@ -129,7 +131,7 @@ if authentication_status:
 
 
 
-        if y[i]>40:
+        if y[i]>lms:
             st.header('Alerta')
             cluster='mongodb+srv://manuel:macs1251@cluster0.3n9ltt2.mongodb.net/Myfirstdata?retryWrites=true&w=majority'
             client=MongoClient(cluster)
@@ -139,8 +141,8 @@ if authentication_status:
             tts = gtts.gTTS(f'{alerta[3]}. Por favor lea los pasos a seguir y pulse el botón de audio para ejecutarlos, eliminando la anomalía', lang="es")
             with open('alerta.mp3', 'wb') as f:
                 tts.write_to_fp(f)
-            playsound('alerta.mp3')
-            os.remove('alerta.mp3')
+            st.audio('alerta.mp3')
+            #os.remove('alerta.mp3')
             st.warning("Alerta Amarilla: Se Excedio el Límite Superior")
             # df = pd.read_excel('C:/Users/Mcastiblanco/Documents/AGPC/DataScience2020/Streamlit/SmartFactory/AGPGPIN04.40.12 Limpieza Retrofit V2.xlsx')
             # df1=df['Unnamed: 5'].dropna().reset_index()
