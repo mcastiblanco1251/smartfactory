@@ -141,8 +141,8 @@ if authentication_status:
             tts = gtts.gTTS(f'{alerta[3]}. Por favor lea los pasos a seguir y pulse el botón de audio para ejecutarlos, eliminando la anomalía', lang="es")
             with open('alerta.mp3', 'wb') as f:
                 tts.write_to_fp(f)
-            st.audio('alerta.mp3')
-            #os.remove('alerta.mp3')
+            playsound('alerta.mp3')
+            os.remove('alerta.mp3')
             st.warning("Alerta Amarilla: Se Excedio el Límite Superior")
             # df = pd.read_excel('C:/Users/Mcastiblanco/Documents/AGPC/DataScience2020/Streamlit/SmartFactory/AGPGPIN04.40.12 Limpieza Retrofit V2.xlsx')
             # df1=df['Unnamed: 5'].dropna().reset_index()
