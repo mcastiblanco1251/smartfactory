@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import psutil
+#import psutil
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
@@ -13,9 +13,9 @@ import gtts
 from playsound import playsound
 import os
 from pymongo import MongoClient
-import plotly.graph_objs as go
+from playsound import playsound
 #%matplotlib notebook
-plt.rcParams['animation.html'] = 'jshtml'
+
 
 #im = Image.open('C:/Users/Mcastiblanco/Documents/AGPC/DataScience2020/Streamlit/Arroz/apps/arroz.png')
 im2 = Image.open('smf1.jpg')
@@ -128,7 +128,7 @@ if authentication_status:
         chart.add_rows(y)
 
 
-        from playsound import playsound
+
         if y[i]>40:
             st.header('Alerta')
             cluster='mongodb+srv://manuel:macs1251@cluster0.3n9ltt2.mongodb.net/Myfirstdata?retryWrites=true&w=majority'
