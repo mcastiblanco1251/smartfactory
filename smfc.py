@@ -122,10 +122,17 @@ if authentication_status:
     i = 0
     x, y = [], []
 
+
+    st.subheader('Configuración de Límites')
+    lms,lmi=st.columns((1,1))
+    with lms:
+        lmsa=st.slider('Limite de Alerta Amarilla Superior', 0, 100, 40)
+        lmsr=st.slider('Limite de Alerta Roja Superior', 0, 100, 80)
+    with lmi:
+        lmia=st.slider('Limite de Alerta Amarilla Inferior', 0, 100, 20)
+        lmir=st.slider('Limite de Alerta Roja Inferior', 0, 100, 10)
+    st.subheader('Gráfico de Seguimiento')
     chart = st.line_chart()
-    st.sidebar.subheader('Límites de Control')
-    lms=st.sidebar.slider('Limite de Alerta Amarilla Superior', 0, 100, 70)
-    lmi=st.sidebar.slider('Limite de Alerta Amarilla Inferior', 0, 100, 20)
     while True:
         x.append(i)
         y.append(psutil.cpu_percent())
@@ -133,18 +140,18 @@ if authentication_status:
 
 
 
-        if y[i]>lms:
+        if y[i]>lmsa:
             st.header('Alerta')
             cluster='mongodb+srv://manuel:macs1251@cluster0.3n9ltt2.mongodb.net/Myfirstdata?retryWrites=true&w=majority'
             client=MongoClient(cluster)
             db=client.Myfirstdata
             al=db.Ins.find_one({"Nombre": "Alertas"})
             alerta=list(al.values())[2]
-            # tts = gtts.gTTS(f'{alerta[3]}. Por favor lea los pasos a seguir y pulse el botón de audio para ejecutarlos, eliminando la anomalía', lang="es")
-            # with open('alerta.mp3', 'wb') as f:
-            #     tts.write_to_fp(f)
-            # playsound('alerta.mp3')
-            # os.remove('alerta.mp3')
+            tts = gtts.gTTS(f'{alerta[3]}. Por favor lea los pasos a seguir y pulse el botón de audio para ejecutarlos, eliminando la anomalía', lang="es")
+            with open('alerta.mp3', 'wb') as f:
+                tts.write_to_fp(f)
+            playsound('alerta.mp3')
+            os.remove('alerta.mp3')
 
 
             st.warning("Alerta Amarilla: Se Excedio el Límite Superior")
@@ -188,9 +195,23 @@ if authentication_status:
                 with open(f'ins{i}.mp3', 'wb') as f:
                     tts.write_to_fp(f)
                 cols[2].audio(f'ins{i}.mp3')
+
+            st.subheader('Registro de eliminación anomalía')
+                # Obtener los datos a insertar
+
+                # Insertar los datos en la colección "usuarios"
+
+            with st.form("my_form"):
+                id=st.selectbox('Id', 'Realizado Anomalía', 'No realizado' )
+                name = st.text_input("Nombre de quien realizó:")
+                turno= st.text_input("Turno:")
+                submit_button = st.form_submit_button("Enviar")
+                if submit_button:
+                    db.Ins.insert_one({"nombre": name, "edad": turno, 'date':datetime.datetime.utcnow()})
+                    st.success("Datos enviados con éxito")
+
+            # Crear un botón que llame a la función insert_data al ser presionado
+
             break #print('Alerta')
-
-
-
         time.sleep(1)
         i += 1
