@@ -146,12 +146,12 @@ if authentication_status:
             client=MongoClient(cluster)
             db=client.Myfirstdata
             al=db.Ins.find_one({"Nombre": "Alertas"})
-            alerta=list(al.values())[2]
-            tts = gtts.gTTS(f'{alerta[3]}. Por favor lea los pasos a seguir y pulse el botón de audio para ejecutarlos, eliminando la anomalía', lang="es")
-            with open('alerta.mp3', 'wb') as f:
-                tts.write_to_fp(f)
-            playsound('alerta.mp3')
-            os.remove('alerta.mp3')
+            #alerta=list(al.values())[2]
+            #tts = gtts.gTTS(f'{alerta[3]}. Por favor lea los pasos a seguir y pulse el botón de audio para ejecutarlos, eliminando la anomalía', lang="es")
+            #with open('alerta.mp3', 'wb') as f:
+            #    tts.write_to_fp(f)
+            #playsound('alerta.mp3')
+            #os.remove('alerta.mp3')
 
 
             st.warning("Alerta Amarilla: Se Excedio el Límite Superior")
