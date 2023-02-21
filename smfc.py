@@ -202,7 +202,7 @@ if authentication_status:
                 # Insertar los datos en la colección "usuarios"
 
             with st.form("my_form"):
-                id=st.selectbox('Id', 'Realizado Anomalía', 'No realizado' )
+                #id=st.selectbox('Id', 'Realizado Anomalía', 'No realizado' )
                 name = st.text_input("Nombre de quien realizó:")
                 turno= st.text_input("Turno:")
                 submit_button = st.form_submit_button("Enviar")
